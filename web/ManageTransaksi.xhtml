@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable var="pesanan" value="#{manageTransaksiBean.listPesanan}" paginator="true" rows="10"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column  headerText="ID Pesanan" style="width: 10px;">
+                            <h:outputText value="#{pesanan.idPesanan}"/>
+                        </p:column>
+                        <p:column  headerText="Harga Total">
+                            <h:outputText value="#{pesanan.hargaTotal2}"/>
+                        </p:column>
+                        <p:column headerText="Cetak" style="width: 10px;">
+                            <p:selectBooleanCheckbox value="#{pesanan.cetak}" disabled="true"/>
+                        </p:column>
+                        <p:column  headerText="Tanggal Jual">
+                            <h:outputText value="#{pesanan.tglJual}"/>
+                        </p:column>
+                        <p:column headerText="Pembeli">
+                            <h:outputText value="#{pesanan.member.email}"/>
+                        </p:column>
+                        <p:column headerText="Action">
+                            <p:commandLink id="detail" update="@form" oncomplete="dlgImg.show()">
+                                <img src="./resources/img/detail.png"/>
+                                <f:setPropertyActionListener target="#{manageTransaksiBean.selectedPesanan}" value="#{pesanan}"/>
+                            </p:commandLink>  <p:tooltip for="detail" value="Detail Transaksi" showEffect="slide" hideEffect="slide" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog widgetVar="dlgImg" modal="true" showEffect="fade" hideEffect="fade">
+                        <p:fieldset legend="Detail Transaksi">
+                              <p:panelGrid columns="2">
+                                Judul Film <h:outputLabel value="#{manageTransaksiBean.jadwal.film.judul}"/>
+                                Theater <h:outputLabel value="#{manageTransaksiBean.jadwal.studio.bioskop.nama}"/>
+                                Tanggal <h:outputLabel value="#{manageTransaksiBean.selectedPesanan.tanggal}"/>
+                                Jam Tayang <h:outputLabel value="#{manageTransaksiBean.selectedPesanan.jam}"/>
+                                No Kursi <h:outputLabel value="#{manageTransaksiBean.seat}"/>
+                            </p:panelGrid>
+                        </p:fieldset>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

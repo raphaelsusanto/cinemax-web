@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+        <style>
+            #draggable { width: 150px; height: 150px; padding: 0.5em; }
+        </style>
+        <script>
+            $(document).ready(function() {
+                $("#draggable").offset({ top: 120, left: 806 });
+                $( "#draggable" ).draggable({ 
+                    zIndex: 2700,
+                    start: function(event, ui) {
+
+                        // Show start dragged position of image.
+                        var Startpos = $(this).position();
+                        $("div#start").text("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
+                    },
+
+                    // Find position where image is dropped.
+                    stop: function(event, ui) {
+
+                        // Show dropped position.
+                        var Stoppos = $(this).position();
+                        $("div#stop").text("STOP: \nLeft: "+ Stoppos.left + "\nTop: " + Stoppos.top);
+                    }
+                });   
+            });
+	
+	
+        </script>
+
+    </head>
+    <body>
+
+
+
+        <div class="demo">
+
+            <div id="draggable" class="ui-widget-content">
+                <p>Drag me around</p>
+            </div>
+
+        </div><!-- End demo -->
+
+        <div id="start">Waiting for dragging the image get started...</div>
+        <div id="stop">Waiting image getting dropped...</div>
+
+        <div class="demo-description" style="display: none; ">
+            <p>Enable draggable functionality on any DOM element. Move the draggable object by clicking on it with the mouse and dragging it anywhere within the viewport.</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.DetailPesanan" table="detail_pesanan" catalog="21DB">
+        <id name="idDetailPesanan" type="string">
+            <column name="id_detail_pesanan" length="12" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="pesanan" class="com.cineplex.entity.Pesanan" fetch="select">
+            <column name="id_pesanan" length="12" />
+        </many-to-one>
+        <many-to-one name="jadwal" class="com.cineplex.entity.Jadwal" fetch="select">
+            <column name="id_jadwal" />
+        </many-to-one>
+        <property name="noKursi" type="string">
+            <column name="no_kursi" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

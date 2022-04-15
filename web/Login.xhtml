@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/LoginTemplate.xhtml">
+            <ui:define name="content">
+                <center>
+                    <h:form rendered="#{loginBean.validate2()}">
+                        <p:growl showDetail="true"/>
+                        <p:fieldset legend="Login" style="width: 300px">
+                            <p:panelGrid columns="2" style="border:none;">
+                                <h:outputLabel value="Username"/><p:inputText value="#{loginBean.username}"/>
+                                <h:outputLabel value="Password"/><p:password value="#{loginBean.password}"/>
+                                <h:outputLabel value=""/><p:commandButton value="Login" action="#{loginBean.login()}" ajax="false"/>
+                            </p:panelGrid>
+                        </p:fieldset>
+                    </h:form>
+                </center>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

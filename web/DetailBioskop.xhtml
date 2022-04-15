@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panelGrid columns="2">
+                        <p:panelGrid columns="2">
+                            ID Bioskop <h:outputLabel value="#{detailBioskopBean.bioskop.idBioskop}"/>
+                            Nama Bioskop <h:outputLabel value="#{detailBioskopBean.bioskop.nama}"/>
+                            Alamat <h:outputLabel value="#{detailBioskopBean.bioskop.alamat}"/>
+                            Telp <h:outputLabel value="#{detailBioskopBean.bioskop.telp}"/>
+                            Harga (Senin-Kamis)<h:outputLabel value="#{detailBioskopBean.bioskop.nomat2}"/>
+                            Harga (Jumat)<h:outputLabel value="#{detailBioskopBean.bioskop.jumat2}"/>
+                            Harga (HTM)<h:outputLabel value="#{detailBioskopBean.bioskop.HTM2}"/>
+                            Harga 3D(Senin-Kamis)<h:outputLabel value="#{detailBioskopBean.bioskop.nomat3D2}"/>
+                            Harga 3D(Jumat)<h:outputLabel value="#{detailBioskopBean.bioskop.jumat3D2}"/>
+                            Harga 3D(HTM)<h:outputLabel value="#{detailBioskopBean.bioskop.HTM3D2}"/>
+                        </p:panelGrid>
+                        <p:fieldset legend="Studio">
+                            <p:dataTable var="studio" value="#{detailBioskopBean.listStudio}" paginator="true" rows="10"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15">
+                                <f:facet name="header">
+                                    <table width="100%">
+                                        <tr>
+                                            <td width="80%">Studio Data</td>
+                                            <td align="right"> 
+                                                <p:commandButton value="add" action="AddStudio" ajax="false">
+                                                    <f:param name="id" value="#{detailBioskopBean.bioskop.idBioskop}"/>
+                                                </p:commandButton></td>
+                                        </tr>
+                                    </table>
+
+                                </f:facet>
+                               
+                                <p:column headerText="Nama Studio" style="width: 10px;">
+                                    <h:outputText value="#{studio.nama}"/>
+                                </p:column>
+                                <p:column headerText="Show" style="width: 10px;">
+                                    <p:selectBooleanCheckbox value="#{studio.status}" disabled="true"/>
+                                </p:column>
+                                <p:column headerText="Action" style="width: 10px;">
+                                    <p:commandLink id="enable2" action="#{detailBioskopBean.disableStudio()}" update="@form">
+                                        <img src="./resources/img/check.png"/>
+                                        <f:setPropertyActionListener target="#{detailBioskopBean.selectedStudio}" value="#{studio}"/>
+                                    </p:commandLink>
+                                    <p:tooltip for="enable2" value="Enable/Disable" showEffect="slide" hideEffect="slide" />
+                                    <p:commandLink id="delete"  oncomplete="confirmation2.show()" update="@form">
+                                        <img src="./resources/img/basket.png"/>
+                                        <f:setPropertyActionListener target="#{detailBioskopBean.selectedStudio}" value="#{studio}"/>
+                                    </p:commandLink>
+                                    <p:tooltip for="delete" value="Delete" showEffect="slide" hideEffect="slide" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </p:panelGrid>
+
+                    <br/>
+                    <p:fieldset legend="Jadwal untuk #{detailBioskopBean.bioskop.nama}">
+                        <p:dataTable var="jadwal" value="#{detailBioskopBean.listJadwal}" paginator="true" rows="10"  
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="80%">Jadwal Data</td>
+                                        <td align="right"> 
+                                            <p:commandButton value="add" action="AddJadwal" ajax="false">
+                                                 <f:param name="id" value="#{detailBioskopBean.bioskop.idBioskop}"/>
+                                            </p:commandButton></td>
+                                    </tr>
+                                </table>
+
+                            </f:facet>
+                            <p:column  headerText="Tanggal Mulai" style="width: 10px;">
+                                <h:outputText value="#{jadwal.tglMulai}"/>
+                            </p:column>
+                            <p:column headerText="Tanggal Akhir" style="width: 10px;">
+                                <h:outputText value="#{jadwal.tglAkhir}"/>
+                            </p:column>
+                            <p:column headerText="3D" style="width: 10px;">
+                                <p:selectBooleanCheckbox value="#{jadwal.three}" disabled="true"/>
+                            </p:column>
+                            <p:column headerText="Jam" style="width: 10px;">
+                                <h:outputText value="#{jadwal.jam}"/>
+                            </p:column>
+                            <p:column headerText="Film" style="width: 10px;">
+                                <h:outputText value="#{jadwal.film.judul}"/>
+                            </p:column>
+                            <p:column headerText="Studio" style="width: 10px;">
+                                <h:outputText value="#{jadwal.studio.nama}"/>
+                            </p:column>
+                            <p:column headerText="Show" style="width: 10px;">
+                                <p:selectBooleanCheckbox value="#{jadwal.status}" disabled="true"/>
+                            </p:column>
+                            <p:column headerText="Action" style="width: 10px;">
+                                <p:commandLink id="enable"  action="#{detailBioskopBean.disableSchedule()}" update="@form">
+                                    <img src="./resources/img/check.png"/>
+                                    <f:setPropertyActionListener target="#{detailBioskopBean.idJadwal}" value="#{jadwal.idJadwal}"/>
+                                </p:commandLink>
+                                <p:tooltip for="enable" value="Enable/Disable" showEffect="slide" hideEffect="slide" />
+                                <p:commandLink id="delete" oncomplete="confirmation.show()" update="@form">
+                                    <img src="./resources/img/basket.png"/>
+                                    <f:setPropertyActionListener target="#{detailBioskopBean.idJadwal}" value="#{jadwal.idJadwal}"/>
+                                </p:commandLink>
+                                <p:tooltip for="delete" value="Delete" showEffect="slide" hideEffect="slide" />
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:fieldset>
+                    <p:commandButton value="Back" action="ManageBioskop" ajax="false"/>
+                    <p:confirmDialog message="Are you sure delete #{detailBioskopBean.idJadwal} ?"  
+                                     severity="alert" widgetVar="confirmation" >  
+                        <p:commandButton id="confirm" value="Yes Sure" update="@form" oncomplete="confirmation.hide()"  
+                                         action="#{detailBioskopBean.deleteJadwal()}" />  
+                        <p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide()" />   
+                    </p:confirmDialog> 
+                    <p:confirmDialog message="Are you sure delete #{detailBioskopBean.selectedStudio.nama} ?"  
+                                     severity="alert" widgetVar="confirmation2" >  
+                        <p:commandButton value="Yes Sure" update="@form" oncomplete="confirmation.hide()"  
+                                         action="#{detailBioskopBean.deleteStudio()}" />  
+                        <p:commandButton  value="Not Yet" onclick="confirmation.hide()" />   
+                    </p:confirmDialog> 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.Jadwal" table="jadwal" catalog="21DB">
+        <id name="idJadwal" type="java.lang.Integer">
+            <column name="id_jadwal" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="studio" class="com.cineplex.entity.Studio" fetch="select">
+            <column name="id_studio" />
+        </many-to-one>
+        <many-to-one name="film" class="com.cineplex.entity.Film" fetch="select">
+            <column name="id_film" />
+        </many-to-one>
+        <property name="tglMulai" type="date">
+            <column name="tgl_mulai" length="10" not-null="true" />
+        </property>
+        <property name="tglAkhir" type="date">
+            <column name="tgl_akhir" length="10" not-null="true" />
+        </property>
+        <property name="three" type="java.lang.Boolean">
+            <column name="three" />
+        </property>
+        <property name="jam" type="string">
+            <column name="jam" length="45" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="status" not-null="true" />
+        </property>
+        <set name="detailPesanans" inverse="true">
+            <key>
+                <column name="id_jadwal" />
+            </key>
+            <one-to-many class="com.cineplex.entity.DetailPesanan" />
+        </set>
+    </class>
+</hibernate-mapping>

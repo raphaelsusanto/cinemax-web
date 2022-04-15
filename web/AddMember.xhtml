@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form >
+                    <p:messages id="msg"/>
+                    <p:fieldset legend="Add Member">
+                        <p:panelGrid columns="2">
+
+                            Email <p:inputText value="#{addMemberBean.newMember.email}" validatorMessage="Email tidak valid" required="true" requiredMessage="Email harus diisi">
+                                <f:validateRegex pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"/>
+                            </p:inputText>
+                            Name <p:inputText value="#{addMemberBean.newMember.name}" required="true" requiredMessage="Nama harus diisi"/>
+                            Birthday <p:calendar value="#{addMemberBean.newMember.birthday}" navigator="true"/>
+                            Identity Type 
+                            <p:selectOneMenu value="#{addMemberBean.newMember.identityType}">
+                                <f:selectItem itemLabel="KTP" itemValue="KTP"/>
+                                <f:selectItem itemLabel="SIM" itemValue="SIM"/>
+                                <f:selectItem itemLabel="Kartu Pelajar" itemValue="Kartu Pelajar"/>
+                            </p:selectOneMenu>
+                            Identity Number <p:inputText value="#{addMemberBean.newMember.noIdentity}"/>
+                            Gender <p:selectOneRadio value="#{addMemberBean.gender}">
+                                <f:selectItem itemLabel="Male" itemValue="m"/>
+                                <f:selectItem itemLabel="Female" itemValue="f"/>
+                            </p:selectOneRadio>
+                            <h:outputText/>
+                            <h:panelGroup>
+                                <p:commandButton value="Add" action="#{addMemberBean.save()}" update="@form"/>
+                                <p:commandButton value="Cancel" action="ManageMember" ajax="false" immediate="true"/>
+                            </h:panelGroup>
+
+                        </p:panelGrid>
+
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

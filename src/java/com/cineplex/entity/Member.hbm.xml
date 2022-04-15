@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.Member" table="member" catalog="21DB">
+        <id name="email" type="string">
+            <column name="email" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="45" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="50" not-null="true" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="birthday" length="10" not-null="true" />
+        </property>
+        <property name="identityType" type="string">
+            <column name="identity_type" length="10" not-null="true" />
+        </property>
+        <property name="noIdentity" type="string">
+            <column name="no_identity" length="45" not-null="true" />
+        </property>
+        <property name="gender" type="java.lang.Boolean">
+            <column name="gender" />
+        </property>
+        <property name="role" type="java.lang.Boolean">
+            <column name="role" />
+        </property>
+        <set name="saldos" inverse="true">
+            <key>
+                <column name="email" length="45" />
+            </key>
+            <one-to-many class="com.cineplex.entity.Saldo" />
+        </set>
+        <set name="pesanans" inverse="true">
+            <key>
+                <column name="email" length="45" />
+            </key>
+            <one-to-many class="com.cineplex.entity.Pesanan" />
+        </set>
+    </class>
+</hibernate-mapping>

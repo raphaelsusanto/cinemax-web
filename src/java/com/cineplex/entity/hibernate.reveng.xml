@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="21DB"/>
+  <table-filter match-name="studio"/>
+  <table-filter match-name="film"/>
+  <table-filter match-name="pesanan"/>
+  <table-filter match-name="jadwal"/>
+  <table-filter match-name="holiday"/>
+  <table-filter match-name="bioskop"/>
+  <table-filter match-name="detail_pesanan"/>
+  <table-filter match-name="member"/>
+  <table-filter match-name="saldo"/>
+</hibernate-reverse-engineering>

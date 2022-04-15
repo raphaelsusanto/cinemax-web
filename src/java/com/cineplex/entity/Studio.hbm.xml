@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.Studio" table="studio" catalog="21DB">
+        <id name="idStudio" type="java.lang.Integer">
+            <column name="id_studio" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bioskop" class="com.cineplex.entity.Bioskop" fetch="select">
+            <column name="id_bioskop" />
+        </many-to-one>
+        <property name="nama" type="string">
+            <column name="nama" length="11" />
+        </property>
+        <property name="denah" type="string">
+            <column name="denah" length="65535" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="status" not-null="true" />
+        </property>
+        <set name="jadwals" inverse="true">
+            <key>
+                <column name="id_studio" />
+            </key>
+            <one-to-many class="com.cineplex.entity.Jadwal" />
+        </set>
+    </class>
+</hibernate-mapping>

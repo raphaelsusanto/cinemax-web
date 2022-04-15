@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+
+            <ui:define name="content">
+                <h:form enctype="multipart/form-data" prependId="false">
+
+                    <p:fieldset legend="Update Bioskop" >
+                        <p:panelGrid id="pnlUpdateFilm" columns="2" style="border: 0 none;">
+                            Judul <p:inputText value="#{updateFilmBean.film.judul}"/>
+                            Sutradara <p:inputText value="#{updateFilmBean.film.sutradara}"/>
+                            Jenis <p:inputText value="#{updateFilmBean.film.jenis}"/>
+                            Produser <p:inputText value="#{updateFilmBean.film.produser}"/>
+                            Produksi <p:inputText value="#{updateFilmBean.film.produksi}"/>
+                            Durasi<p:inputText value="#{updateFilmBean.film.durasi}"/>
+                            Pemirsa
+                            <p:selectOneMenu value="#{updateFilmBean.film.pemirsa}">
+                                <f:selectItem itemLabel="D" itemValue="D"/>
+                                <f:selectItem itemLabel="R" itemValue="R"/>
+                                <f:selectItem itemLabel="SU" itemValue="SU"/>
+                            </p:selectOneMenu>
+                            Sinopsis <p:inputTextarea value="#{updateFilmBean.film.sinopsis}"/>
+                            Gambar
+<!--                            <p:inplace id="checkboxInplace" label="#{updateFilmBean.film.gambar}" effect="none">  -->
+                            <p:fileUpload mode="simple" value="#{updateFilmBean.file}"/>
+                            <!--                            </p:inplace> -->
+                            <h:outputText/><h:panelGroup><p:commandButton value="Update" action="#{updateFilmBean.updateFilm()}" ajax="false"/><p:commandButton value="Cancel" action="ManageFilm" ajax="false"/></h:panelGroup>
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

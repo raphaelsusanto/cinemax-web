@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form prependId="false">
+                    <p:fieldset legend="Add Bioskop" >
+                        <p:messages id="msg"/>
+                        <p:panelGrid columns="2">
+                            <p:panelGrid id="pnl" columns="2">
+                                Nama Bioskop <p:inputText value="#{addBioskopBean.bioskop.nama}" required="true" label="Nama Bioskop" requiredMessage="Nama Bioskop harus diisi"/>
+                                Alamat Bioskop <p:inputText value="#{addBioskopBean.bioskop.alamat}" required="true" label="Alamat" requiredMessage="Alamat harus diisi"/>
+                                Telp <p:inputText value="#{addBioskopBean.bioskop.telp}" required="true" label="Telp" requiredMessage="Telp harus diisi"/>
+                                Harga Tiket(Nomat) <p:inputText value="#{addBioskopBean.bioskop.nomat}" required="true" label="Harga" requiredMessage="Harga harus diisi"/>
+                                Harga Tiket(Jumat) <p:inputText value="#{addBioskopBean.bioskop.jmt}" required="true" label="Harga" requiredMessage="Harga harus diisi"/>
+                                Harga Tiket(HTM)<p:inputText value="#{addBioskopBean.bioskop.htm}" required="true" label="Harga" requiredMessage="Harga harus diisi"/>
+                                Harga Tiket(Nomat 3D)<p:inputText value="#{addBioskopBean.bioskop.nomat3d}" required="true" label="Harga" requiredMessage="Harga harus diisi"/>
+                                Harga Tiket(Jumat 3D)<p:inputText value="#{addBioskopBean.bioskop.jmt3d}" required="true" label="Harga" requiredMessage="Harga harus diisi"/>
+                                Harga Tiket(HTM 3D)<p:inputText value="#{addBioskopBean.bioskop.htm3d}" required="true" label="Harga" requiredMessage="Harga harus diisi"/>
+                                <h:outputText/><h:panelGroup><p:commandButton value="Add" action="#{addBioskopBean.addMarker()}" update="@form"/><p:commandButton value="Cancel" action="ManageBioskop" ajax="false" immediate="true"/></h:panelGroup>
+                            </p:panelGrid>
+                            <p:panelGrid columns="1">
+                                <p:gmap id="gmap" center="-4.499762,111.09375" type="ROADMAP"   
+                                        style="width:600px;height:300px" model="#{addBioskopBean.model}" onPointClick="handlePointClick(event);"   
+                                        widgetVar="map" zoom="5"/>
+                                <p:panelGrid columns="2">
+                                    Latitude <h:inputText id="lat" value="#{addBioskopBean.lat}" />  
+                                    Longitude <h:inputText id="lng" value="#{addBioskopBean.lng}" />  
+                                    <p:commandButton onclick="cancel()" value="Clear" action="#{addBioskopBean.clear()}" immediate="true"/>
+                                </p:panelGrid>
+                            </p:panelGrid>
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

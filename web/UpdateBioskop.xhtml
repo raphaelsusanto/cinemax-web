@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form prependId="false">
+                    <p:growl id="msg1" showDetail="true" life="6000"/>
+                    <p:fieldset legend="Update Bioskop" >
+                        <p:panelGrid columns="2">
+                            <p:panelGrid id="pnl" columns="2" style="border: 0 none;">
+                                Nama Bioskop <p:inputText value="#{updateBioskopBean.bioskop.nama}"/>
+                                Alamat Bioskop <p:inputText value="#{updateBioskopBean.bioskop.alamat}"/>
+                                Telp <p:inputText value="#{updateBioskopBean.bioskop.telp}"/>
+                                Harga Tiket(Nomat) <p:inputText value="#{updateBioskopBean.bioskop.nomat}"/>
+                                Harga Tiket(Jumat) <p:inputText value="#{updateBioskopBean.bioskop.jmt}"/>
+                                Harga Tiket(HTM)<p:inputText value="#{updateBioskopBean.bioskop.htm}"/>
+                                Harga Tiket(Nomat 3D)<p:inputText value="#{updateBioskopBean.bioskop.nomat3d}"/>
+                                Harga Tiket(Jumat 3D)<p:inputText value="#{updateBioskopBean.bioskop.jmt3d}"/>
+                                Harga Tiket(HTM 3D)<p:inputText value="#{updateBioskopBean.bioskop.htm3d}"/>
+                                <h:outputText/><h:panelGroup><p:commandButton value="Update" action="#{updateBioskopBean.update()}" update="msg1 pnl @form" oncomplete="cancel()" /><p:commandButton value="Cancel" action="ManageBioskop"/></h:panelGroup>
+                            </p:panelGrid>
+                            <p:panelGrid columns="1">
+                                <p:gmap id="gmap" center="-4.499762,111.09375" type="ROADMAP"   
+                                        style="width:600px;height:300px" model="#{updateBioskopBean.model}" onPointClick="handlePointClick(event);"   
+                                        widgetVar="map" zoom="5"/>
+                                <p:panelGrid columns="2">
+                                    Latitude <h:inputText id="lat" value="#{updateBioskopBean.lat}" />  
+                                    Longitude <h:inputText id="lng" value="#{updateBioskopBean.lng}" />  
+                                    <p:commandButton value="Clear" onclick="cancel()"/>
+                                </p:panelGrid>
+
+                            </p:panelGrid>
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

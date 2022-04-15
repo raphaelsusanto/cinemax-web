@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+
+            <ui:define name="content">
+                <h:form enctype="multipart/form-data">
+                    <p:fieldset legend="Add Film" >
+                        <p:messages id="msg"/>
+                        <p:panelGrid id="pnl" columns="2" style="border: 0 none;">
+                            Judul <p:inputText id="itJudul" label="Judul" value="#{addFilmBean.film.judul}" required="true" requiredMessage="Judul harus diisi"/>
+                            Sutradara <p:inputText id="itSutradara" label="Sutradara" value="#{addFilmBean.film.sutradara}" required="true" requiredMessage="Sutradara harus diisi"/>
+                            Jenis <p:inputText id="itJenis" value="#{addFilmBean.film.jenis}" required="true" label="Jenis" requiredMessage="Jenis harus diisi"/>
+                            Produser <p:inputText id="itProduser" value="#{addFilmBean.film.produser}" required="true" label="Produser" requiredMessage="Produser harus diisi"/>
+                            Produksi <p:inputText id="itProduksi" value="#{addFilmBean.film.produksi}" required="true" label="Produksi" requiredMessage="Produksi harus diisi"/>
+                            Durasi<p:inputText id="itDurasi" value="#{addFilmBean.film.durasi}" required="true" label="Durasi" requiredMessage="Durasi harus diisi"/>
+                            Pemirsa
+                            <p:selectOneMenu value="#{addFilmBean.film.pemirsa}">
+                                <f:selectItem itemLabel="D" itemValue="D"/>
+                                <f:selectItem itemLabel="R" itemValue="R"/>
+                                <f:selectItem itemLabel="SU" itemValue="SU"/>
+                            </p:selectOneMenu>
+                            Sinopsis <p:inputTextarea id="itSinopsis" value="#{addFilmBean.film.sinopsis}" required="true" label="Sinopsis" requiredMessage="Sinopsis harus diisi"/>
+                            Gambar <p:fileUpload mode="simple" value="#{addFilmBean.file}" required="true" id="fu" label="Gambar" requiredMessage="Gambar harus diisi"/>
+                            <h:outputText/><h:panelGroup><p:commandButton value="Add" action="#{addFilmBean.saveFilm()}" update="msg pnl" ajax="false"/><p:commandButton value="Cancel" action="ManageFilm" ajax="false" immediate="true"/></h:panelGroup>
+                        </p:panelGrid>
+                        
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

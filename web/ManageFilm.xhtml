@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:growl showDetail="true"/>
+                    <p:dataTable var="film" value="#{manageFilmBean.dataFilm}" paginator="true" rows="10"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            <table width="100%">
+                                <tr>
+                                    <td width="80%">Film Data</td>
+                                    <td align="right"> <p:commandButton value="add" action="AddFilm" ajax="false"/></td>
+                                </tr>
+                            </table>
+
+                        </f:facet>
+                        
+                        <p:column filterBy="#{film.judul}" filterMatchMode="contains" headerText="Judul">
+                            <h:outputText value="#{film.judul}"/>
+                        </p:column>
+                        <p:column filterBy="#{film.sutradara}" filterMatchMode="contains" headerText="Sutradara">
+                            <h:outputText value="#{film.sutradara}"/>
+                        </p:column>
+                        <p:column filterBy="#{film.jenis}" filterMatchMode="contains" headerText="Jenis">
+                            <h:outputText value="#{film.jenis}"/>
+                        </p:column>
+                        <p:column filterBy="#{film.produser}" filterMatchMode="contains" headerText="Produser">
+                            <h:outputText value="#{film.produser}"/>
+                        </p:column>
+                        <p:column filterBy="#{film.produksi}" filterMatchMode="contains" headerText="Produksi">
+                            <h:outputText value="#{film.produksi}"/>
+                        </p:column>
+                        <p:column headerText="Durasi">
+                            <h:outputText value="#{film.durasi} Menit"/>
+                        </p:column>
+                        <p:column headerText="Pemirsa" style="width: 10px;">
+                            <h:outputText value="#{film.pemirsa}"/>
+                        </p:column>
+                        <p:column headerText="Action">    
+                            <p:commandLink id="update" action="UpdateFilm" ajax="false">
+                                <img src="./resources/img/config.png"/>
+                                <f:param name="id" value="#{film.idFilm}"/>
+                            </p:commandLink>
+                            <p:tooltip for="update" value="Update" showEffect="slide" hideEffect="slide" />
+                            <p:commandLink id="view" update="@form" oncomplete="dlgImg.show()">
+                               <img src="./resources/img/viewimage.png"/>
+                                <f:setPropertyActionListener target="#{manageFilmBean.selectedFilm}" value="#{film}"/>
+                            </p:commandLink>
+                            <p:tooltip for="view" value="View" showEffect="slide" hideEffect="slide" />
+                            <p:commandLink id="delete" oncomplete="confirmation.show()" update="@form">
+                                 <img src="./resources/img/basket.png"/>
+                                <f:setPropertyActionListener target="#{manageFilmBean.selectedFilm}" value="#{film}"/>
+                            </p:commandLink>
+                            <p:tooltip for="delete" value="Delete" showEffect="slide" hideEffect="slide" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog widgetVar="dlgImg" modal="true" showEffect="fade" hideEffect="fade">
+                        <p:graphicImage value="/img/#{manageFilmBean.selectedFilm.gambar}"/>
+                    </p:dialog>
+                    <p:confirmDialog message="Are you sure delete #{manageFilmBean.selectedFilm.judul} ?"  
+                                     severity="alert" widgetVar="confirmation" >  
+                        <p:commandButton id="confirm" value="Yes Sure" update="@form" oncomplete="confirmation.hide()"  
+                                         action="#{manageFilmBean.delete()}" />  
+                        <p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide()" />   
+                    </p:confirmDialog> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

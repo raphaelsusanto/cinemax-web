@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.Holiday" table="holiday" catalog="21DB">
+        <id name="holidayDate" type="date">
+            <column name="holiday_date" length="10" />
+            <generator class="assigned" />
+        </id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form prependId="false">
+                    <p:growl showDetail="true"/>
+                    <p:dataTable var="bioskop" value="#{manageBioskopBean.dataBioskop}" paginator="true" rows="10"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" >
+                        <f:facet name="header">
+                            <table width="100%">
+                                <tr>
+                                    <td width="80%">Bioskop Data</td>
+                                    <td align="right"> <p:commandButton value="add" action="AddBioskop" ajax="false"/></td>
+                                </tr>
+                            </table>
+
+                        </f:facet>
+                        
+                        <p:column filterBy="#{bioskop.nama}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                Nama
+                            </f:facet>
+                            <h:outputText value="#{bioskop.nama}"/>
+                        </p:column>
+                        <p:column filterBy="#{bioskop.alamat}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                Alamat
+                            </f:facet>
+                            <h:outputText value="#{bioskop.alamat}"/>
+                        </p:column>
+                        <p:column filterBy="#{bioskop.telp}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                Telp
+                            </f:facet>
+                            <h:outputText value="#{bioskop.telp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                Action
+                            </f:facet>
+
+                            <p:commandLink id="map" action="map" ajax="false">
+                                <img src="./resources/img/world.png"/>
+                                <f:param name="idBioskop" value="#{bioskop.idBioskop}"/>
+                            </p:commandLink>
+                            <p:tooltip for="map" value="View in map" showEffect="slide" hideEffect="slide" /> &nbsp;
+                            <p:commandLink id="detail" action="DetailBioskop" ajax="false">
+                                <img src="./resources/img/detail.png"/>
+                                <f:param name="id" value="#{bioskop.idBioskop}"/>
+                            </p:commandLink>
+                            <p:tooltip for="detail" value="View detail" showEffect="slide" hideEffect="slide" />&nbsp;
+                            <p:commandLink id="update" action="UpdateBioskop" ajax="false">
+                                <img src="./resources/img/config.png"/>
+                                <f:param name="id" value="#{bioskop.idBioskop}"/>
+                            </p:commandLink>
+                            <p:tooltip for="update" value="Update" showEffect="slide" hideEffect="slide" />&nbsp;
+<!--                            <p:commandLink id="addStudio" action="AddStudio" ajax="false">
+                                <img src="./resources/img/showreel.png"/>
+                                <f:param name="id" value="#{bioskop.idBioskop}"/>
+                            </p:commandLink>
+                            <p:tooltip for="addStudio" value="Add Studio" showEffect="slide" hideEffect="slide" />&nbsp;
+                            <p:commandLink id="schedule" action="AddJadwal" ajax="false">
+                                <img src="./resources/img/calendar.png"/>
+                                <f:param name="id" value="#{bioskop.idBioskop}"/>
+                            </p:commandLink>
+                            <p:tooltip for="schedule" value="Add Schedule" showEffect="slide" hideEffect="slide" />-->
+                            <p:commandLink id="delete"  oncomplete="confirmation.show()" update="@form" >
+                                <img src="./resources/img/basket.png"/>
+                                <f:setPropertyActionListener target="#{manageBioskopBean.selectedBioskop}" value="#{bioskop}"/>
+                            </p:commandLink>
+                            <p:tooltip for="delete" value="Delete" showEffect="slide" hideEffect="slide" />
+                        </p:column>
+                    </p:dataTable>
+                   
+                    <p:confirmDialog message="Are you sure delete #{manageBioskopBean.selectedBioskop.nama} ?"  
+                                     severity="alert" widgetVar="confirmation" >  
+                        <p:commandButton id="confirm" value="Yes Sure" update="@form" oncomplete="confirmation.hide()"  
+                                         action="#{manageBioskopBean.delete()}" />  
+                        <p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide()" />   
+                    </p:confirmDialog> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

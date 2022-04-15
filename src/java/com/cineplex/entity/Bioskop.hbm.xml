@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.Bioskop" table="bioskop" catalog="21DB">
+        <id name="idBioskop" type="java.lang.Integer">
+            <column name="id_bioskop" />
+            <generator class="identity" />
+        </id>
+        <property name="nama" type="string">
+            <column name="nama" length="45" />
+        </property>
+        <property name="alamat" type="string">
+            <column name="alamat" length="45" />
+        </property>
+        <property name="telp" type="string">
+            <column name="telp" length="45" />
+        </property>
+        <property name="nomat" type="java.lang.Integer">
+            <column name="nomat" />
+        </property>
+        <property name="htm" type="java.lang.Integer">
+            <column name="htm" />
+        </property>
+        <property name="jmt" type="java.lang.Integer">
+            <column name="jmt" />
+        </property>
+        <property name="nomat3d" type="java.lang.Integer">
+            <column name="nomat3d" />
+        </property>
+        <property name="htm3d" type="java.lang.Integer">
+            <column name="htm3d" />
+        </property>
+        <property name="jmt3d" type="java.lang.Integer">
+            <column name="jmt3d" />
+        </property>
+        <property name="latitude" type="java.lang.Double">
+            <column name="latitude" precision="22" scale="0" />
+        </property>
+        <property name="longitude" type="java.lang.Double">
+            <column name="longitude" precision="22" scale="0" />
+        </property>
+        <set name="studios" inverse="true">
+            <key>
+                <column name="id_bioskop" />
+            </key>
+            <one-to-many class="com.cineplex.entity.Studio" />
+        </set>
+    </class>
+</hibernate-mapping>

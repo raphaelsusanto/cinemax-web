@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:fieldset legend="Add Schedule">
+                        <p:panelGrid columns="2">
+                            Bioskop <h:outputText value="#{addJadwalBean.bioskop.nama}"/>
+                            Studio
+                            <p:selectOneMenu value="#{addJadwalBean.idStudio}">
+                                <f:selectItems value="#{addJadwalBean.listStudio}" var="studio" itemLabel="#{studio.nama}" itemValue="#{studio.idStudio}"/>
+                            </p:selectOneMenu>
+                            Film
+                            <h:panelGroup>
+                                <p:selectOneMenu value="#{addJadwalBean.idFilm}" >
+                                    <p:ajax update="menit"/>
+                                    <f:selectItems value="#{addJadwalBean.listFilm}" var="film" itemLabel="#{film.judul}" itemValue="#{film.idFilm}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="#{addJadwalBean.selectedFilm.durasi} Menit" id="menit"/>
+                            </h:panelGroup>
+                            Start Date
+                            <p:calendar value="#{addJadwalBean.tglMulai}" mindate="#{addJadwalBean.currentDate}"/>
+                            End Date
+                            <p:calendar value="#{addJadwalBean.tglAkhir}" mindate="#{addJadwalBean.currentDate}"/>
+                            Time 
+                            <h:panelGroup>
+                                <p:calendar value="#{addJadwalBean.date}" minHour="11" pattern="HH:mm" timeOnly="true" /> 
+                                <p:commandButton value="AddTime" actionListener="#{addJadwalBean.addTime()}" update="@form"/>
+                            </h:panelGroup>
+                            Time list
+                            <p:selectOneListbox id="listBox" style="height: 100px;">
+                                <f:selectItems value="#{addJadwalBean.listDate}" var="date" itemLabel="#{date}" itemValue="#{date}"/>
+                            </p:selectOneListbox>
+                            3D <p:selectBooleanCheckbox value="#{addJadwalBean.three}"/>
+                            <p:commandButton value="Add" action="#{addJadwalBean.save()}" update="growl" ajax="false">
+                                <f:param name="id" value="#{addJadwalBean.bioskop.idBioskop}"/>
+                            </p:commandButton><p:commandButton value="Cancel" action="ManageBioskop" ajax="false"/>
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 8, 2012 4:48:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.cineplex.entity.Film" table="film" catalog="21DB">
+        <id name="idFilm" type="java.lang.Integer">
+            <column name="id_film" />
+            <generator class="identity" />
+        </id>
+        <property name="judul" type="string">
+            <column name="judul" length="45" />
+        </property>
+        <property name="sutradara" type="string">
+            <column name="sutradara" length="45" />
+        </property>
+        <property name="jenis" type="string">
+            <column name="jenis" length="45" />
+        </property>
+        <property name="produser" type="string">
+            <column name="produser" length="200" />
+        </property>
+        <property name="produksi" type="string">
+            <column name="produksi" length="45" />
+        </property>
+        <property name="sinopsis" type="string">
+            <column name="sinopsis" length="65535" />
+        </property>
+        <property name="durasi" type="java.lang.Integer">
+            <column name="durasi" />
+        </property>
+        <property name="pemirsa" type="string">
+            <column name="pemirsa" length="45" />
+        </property>
+        <property name="gambar" type="string">
+            <column name="gambar" length="45" />
+        </property>
+        <set name="jadwals" inverse="true">
+            <key>
+                <column name="id_film" />
+            </key>
+            <one-to-many class="com.cineplex.entity.Jadwal" />
+        </set>
+    </class>
+</hibernate-mapping>

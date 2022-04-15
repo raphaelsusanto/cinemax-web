@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./template/MasterTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:messages showDetail="true"/>
+                    <p:dataTable var="member" value="#{manageMemberBean.listMember}" paginator="true" rows="10"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            <table width="100%">
+                                <tr>
+                                    <td width="80%">Member Data</td>
+                                    <td align="right"> <p:commandButton value="Add" action="AddMember" ajax="false"/></td>
+                                </tr>
+                            </table>
+
+                        </f:facet>
+                      
+                        <p:column headerText="Email" filterBy="#{member.email}" filterMatchMode="contains">
+                            <h:outputText value="#{member.email}"/>
+                        </p:column>
+                        <p:column headerText="Name" filterBy="#{member.name}" filterMatchMode="contains">
+                            <h:outputText value="#{member.name}"/>
+                        </p:column>
+                        <p:column headerText="Birthday">
+                            <h:outputText value="#{member.birthday}"/>
+                        </p:column>
+                        <p:column headerText="Identity" >
+                            <h:outputText value="#{member.identityType}"/>
+                        </p:column>
+                        <p:column headerText="No Identity" >
+                            <h:outputText value="#{member.noIdentity}"/>
+                        </p:column>
+                        <p:column headerText="Gender" >
+                            <h:outputText value="#{member.jenisKelamin}"/>
+                        </p:column>
+                        <p:column headerText="Role" >
+                            <h:outputText value="#{member.role2}"/>
+                        </p:column>
+                        <p:column headerText="Action" >
+                            <p:commandLink id="addSaldo" oncomplete="dialogAddSaldo.show()" update="@form" rendered="#{!member.role}">
+                                <img src="./resources/img/plus.png"/>
+                                <f:setPropertyActionListener target="#{manageMemberBean.selectedMember}" value="#{member}"/>
+                            </p:commandLink>
+                            <p:tooltip for="addSaldo" value="Add Saldo" showEffect="slide" hideEffect="slide" />
+                            <p:commandLink id="detail" oncomplete="dialogDetail.show()" update="@form" rendered="#{!member.role}">
+                                <img src="./resources/img/detail.png"/>
+                                <f:setPropertyActionListener target="#{manageMemberBean.selectedMember}" value="#{member}"/>
+                            </p:commandLink>
+                            <p:tooltip for="detail" value="Detail Transaksi" showEffect="slide" hideEffect="slide" />
+                            <p:commandLink id="reset"  update="@form" rendered="#{!member.role}" oncomplete="confirmation.show()" >
+                                 <img src="./resources/img/reset.png"/>
+                                <f:setPropertyActionListener target="#{manageMemberBean.selectedMember}" value="#{member}"/>
+                            </p:commandLink>
+                            <p:tooltip for="reset" value="Reset Password" showEffect="slide" hideEffect="slide" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog widgetVar="dialogAddSaldo" modal="true" showEffect="fade" hideEffect="face">
+                        <p:panelGrid columns="2">
+                            Email <h:outputLabel value="#{manageMemberBean.selectedMember.email}"/>
+                            Saldo <p:spinner min="10000" stepFactor="10000" value="#{manageMemberBean.saldo}"/>
+                            <h:outputLabel/> <p:commandButton value="Add Saldo" action="#{manageMemberBean.addSaldo()}" ajax="false" />
+                        </p:panelGrid>
+                    </p:dialog>
+                    <p:dialog widgetVar="dialogDetail" modal="true" showEffect="fade" hideEffect="face">
+                        <p:dataTable var="data" value="#{manageMemberBean.data}" paginator="true" rows="15"  
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     >
+                            <p:column headerText="Tanggal">
+                                <h:outputText value="#{data[1]}"/>
+                            </p:column>
+                            <p:column headerText="Jenis Transaksi">
+                                <h:outputText rendered="#{data[2]==0}" value="Transaksi"/>
+                                <h:outputText rendered="#{data[2]==1}" value="Pengisian Saldo"/>
+                            </p:column>
+                             <p:column headerText="Besar Transaksi">
+                                 <h:outputText rendered="#{data[2]==0}" value="#{- data[0]}"/>
+                                <h:outputText rendered="#{data[2]==1}" value="#{data[0]}"/>
+                            </p:column>
+                            <p:column headerText="Saldo">
+                                <h:outputText value="#{data[3]}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p align="right">
+                            Saldo Akhir #{manageMemberBean.saldoAkhir}
+                        </p>
+                    </p:dialog>
+                    
+                    <p:confirmDialog message="Are you sure reset password #{manageMemberBean.selectedMember.email} ?"  
+                                     severity="alert" widgetVar="confirmation" >  
+                        <p:commandButton id="confirm" value="Yes Sure" update="@form" oncomplete="confirmation.hide()"  
+                                         action="#{manageMemberBean.resetPassword()}" />  
+                        <p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide()" />   
+                    </p:confirmDialog> 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
